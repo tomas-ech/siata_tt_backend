@@ -1,0 +1,35 @@
+from datetime import datetime, timezone
+from typing import Optional, TYPE_CHECKING
+from sqlalchemy import String, Numeric, ForeignKey, DateTime, func
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from .base import Base
+
+if TYPE_CHECKING:
+    from .logistic import LandLogistic, MarineLogistic
+
+class DeliveryPlan(Base):    
+    __tablename__ = "delivery_plan"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    
+    product_id: Mapped[int] = mapped_column(ForeignKey("product.id"), nullable=False)
+    
+    amount: Mapped[int] = mapped_column(nullable=False)
+    
+    ship_cost: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False)
+    
+    tracking_code: Mapped[str] = mapped_column(String(10), unique=True, nullable=False)
+    
+    price: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False)
+    
+    discount: Mapped[float] = mapped_column(Numeric(12, 2), default=0.0)
+    
+    registry_date: Mapped[datetime] = mapped_column(DateTime, default=func.now())
+    
+    delivery_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+
+    land_logistic: Mapped[Optional["LandLogistic"]] = relationship(back_populates="delivery_plan")
+    
+    marine_logistic: Mapped[Optional["MarineLogistic"]] = relationship(back_populates="delivery_plan")
