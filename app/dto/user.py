@@ -7,6 +7,8 @@ class UserBase(BaseModel):
     email: EmailStr
     contact_phone: str | None = Field(None, max_length=15)
 
+class UserCreate(UserBase):
+    pass
 
 class UserResponse(UserBase):
     id: int
