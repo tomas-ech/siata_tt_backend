@@ -8,13 +8,13 @@ if TYPE_CHECKING:
     from .logistic import LandLogistic, MarineLogistic
 
 class DeliveryPlan(Base):    
-    __tablename__ = "delivery_plan"
+    __tablename__ = "delivery_plans"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     
-    product_id: Mapped[int] = mapped_column(ForeignKey("product.id"), nullable=False)
+    product_id: Mapped[int] = mapped_column(ForeignKey("products.id"), nullable=False)
     
     amount: Mapped[int] = mapped_column(nullable=False)
     
