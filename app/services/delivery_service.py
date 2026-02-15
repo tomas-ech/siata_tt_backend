@@ -38,6 +38,7 @@ class DeliveryService:
             product_id=plan_data.product_id,
             amount=plan_data.amount,
             ship_cost=plan_data.ship_cost,
+            delivery_type_id=plan_data.delivery_type_id,
             price=normal_price,
             discount=discount,
             tracking_code=str(uuid.uuid4()).upper()[:10],
