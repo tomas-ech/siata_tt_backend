@@ -9,7 +9,7 @@ from app.utils.auth.get_user import get_user
 router = APIRouter()
 
 @router.get("/", response_model=List[ProductResponse])
-def get_all_users(
+def get_all_products(
     db: Session = Depends(get_db),
     current_user_id: int = Depends(get_user)
     ):
