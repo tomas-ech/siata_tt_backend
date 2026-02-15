@@ -8,7 +8,7 @@ class UserBase(BaseModel):
     contact_phone: str | None = Field(None, max_length=15)
 
 class UserCreate(UserBase):
-    pass
+    password: str = Field(..., min_length=8, max_length=72)
 
 class UserResponse(UserBase):
     id: int
