@@ -6,6 +6,15 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 if TYPE_CHECKING:
     from .logistic import LandLogistic, MarineLogistic
+    
+class DeliveryType(Base):
+    __tablename__ = "delivery_types"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    
+    name: Mapped[str] = mapped_column(String(50))
+    
+    description: Mapped[str] = mapped_column(String(100))
+    
 
 class DeliveryPlan(Base):    
     __tablename__ = "delivery_plans"
@@ -15,6 +24,8 @@ class DeliveryPlan(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     
     product_id: Mapped[int] = mapped_column(ForeignKey("products.id"), nullable=False)
+    
+    delivery_type_id: Mapped[int] = mapped_column(ForeignKey("delivery_types.id"), nullable=False)
     
     amount: Mapped[int] = mapped_column(nullable=False)
     

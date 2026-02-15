@@ -1,6 +1,6 @@
 from .base import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String, ForeignKey
+from sqlalchemy import String, Numeric, ForeignKey
 
 class ProductType(Base):
     __tablename__ = "product_types"
@@ -17,6 +17,8 @@ class Product(Base):
     name: Mapped[str] = mapped_column(String(100))
     
     description: Mapped[str] = mapped_column(String(100))
+    
+    price: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False)
     
     type: Mapped[int] = mapped_column(ForeignKey("product_types.id"), nullable=False)
     
