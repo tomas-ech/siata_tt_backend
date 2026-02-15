@@ -15,4 +15,4 @@ class User(Base):
     
     contact_phone: Mapped[str] = mapped_column(String(20))
     
-    hashed_password: Mapped[str] = mapped_column(String(20), nullable=False)
+    hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
