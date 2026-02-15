@@ -5,6 +5,7 @@ class DeliveryPlanCreate(BaseModel):
     user_id: int
     product_id: int
     amount: int = Field(..., gt=0)
+    delivery_type_id: int
     ship_cost: float = Field(..., ge=0)
     delivery_date: datetime
     destination_id: int
@@ -14,6 +15,7 @@ class DeliveryPlanResponse(BaseModel):
     id: int
     user_id: int
     product_id: int
+    delivery_type_id: int
     amount: int
     ship_cost: float
     price: float
