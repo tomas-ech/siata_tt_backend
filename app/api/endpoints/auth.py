@@ -39,7 +39,7 @@ def login(db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = 
     if not user or not security.verify_password(form_data.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Email o contraseña incorrectos",
+            detail="El Email o contraseña son incorrectos",
             headers={"WWW-Authenticate": "Bearer"},
         )
     
