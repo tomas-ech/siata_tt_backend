@@ -2,13 +2,15 @@ from typing import List
 from app.models.user import User
 from app.db.session import get_db
 from sqlalchemy.orm import Session
+from app.utils.auth.get_user import get_user
 from app.dto.user import UserCreate, UserResponse
 from fastapi import APIRouter, Depends, HTTPException
 
 router = APIRouter()
 
 @router.post("/", response_model=UserCreate)
-def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
+def create_user(user_in: UserCreate, db: Session = Depends(get_db),
+    ):
     
     email_exists = db.query(User).filter(User.email == user_in.email).first()
     
@@ -24,6 +26,9 @@ def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
     return new_user
 
 @router.get("/", response_model=List[UserResponse])
-def get_all_users(db: Session = Depends(get_db)):
+def get_all_users(
+    db: Session = Depends(get_db),
+    current_user_id: int = Depends(get_user)
+    ):
     
     return db.query(User).all();
