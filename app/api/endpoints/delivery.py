@@ -12,6 +12,15 @@ router = APIRouter()
 def get_all_deliveries(db: Session = Depends(get_db)):
     return db.query(DeliveryPlan).all()
 
+@router.get("/user/{user_id}", response_model=List[DeliveryPlanResponse])
+def get_deliveries_by_user(user_id: int, db: Session = Depends(get_db)):
+    
+    deliveries_by_user = db.query(DeliveryPlan)\
+        .filter(DeliveryPlan.user_id == user_id)\
+        .all()
+    
+    return deliveries_by_user
+
 @router.post("/", response_model=DeliveryPlanResponse)
 def create_delivery_plan(plan_in: DeliveryPlanCreate, db: Session = Depends(get_db)):
     service = DeliveryService(db)

@@ -15,6 +15,7 @@ class DeliveryType(Base):
     
     description: Mapped[str] = mapped_column(String(100))
     
+    
 
 class DeliveryPlan(Base):    
     __tablename__ = "delivery_plans"
@@ -44,3 +45,4 @@ class DeliveryPlan(Base):
     land_logistic: Mapped[Optional["LandLogistic"]] = relationship(back_populates="delivery_plan")
     
     marine_logistic: Mapped[Optional["MarineLogistic"]] = relationship(back_populates="delivery_plan")
+    
